@@ -18,6 +18,7 @@
 		835358E1270CEC550082FB02 /* ClearScoreTaskUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835358E0270CEC550082FB02 /* ClearScoreTaskUITestsLaunchTests.swift */; };
 		837588F5270F5AAE0067DEF6 /* CreditInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837588F4270F5AAE0067DEF6 /* CreditInfo.swift */; };
 		837588F9270F5D3A0067DEF6 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837588F8270F5D3A0067DEF6 /* UIViewExtensions.swift */; };
+		83C19AEC27134B7F002010C3 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C19AEB27134B7F002010C3 /* NetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		835358E0270CEC550082FB02 /* ClearScoreTaskUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearScoreTaskUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		837588F4270F5AAE0067DEF6 /* CreditInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditInfo.swift; sourceTree = "<group>"; };
 		837588F8270F5D3A0067DEF6 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		83C19AEB27134B7F002010C3 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 		835358BC270CEC550082FB02 /* ClearScoreTask */ = {
 			isa = PBXGroup;
 			children = (
+				83C19AEA271347D9002010C3 /* Service */,
 				837588F6270F5D1E0067DEF6 /* Util */,
 				837588F3270F5A9B0067DEF6 /* Model */,
 				837588F2270F5A910067DEF6 /* View */,
@@ -171,6 +174,14 @@
 				837588F8270F5D3A0067DEF6 /* UIViewExtensions.swift */,
 			);
 			path = ViewExtensions;
+			sourceTree = "<group>";
+		};
+		83C19AEA271347D9002010C3 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				83C19AEB27134B7F002010C3 /* NetworkService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -308,6 +319,7 @@
 				837588F9270F5D3A0067DEF6 /* UIViewExtensions.swift in Sources */,
 				835358BE270CEC550082FB02 /* AppDelegate.swift in Sources */,
 				837588F5270F5AAE0067DEF6 /* CreditInfo.swift in Sources */,
+				83C19AEC27134B7F002010C3 /* NetworkService.swift in Sources */,
 				835358C0270CEC550082FB02 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
