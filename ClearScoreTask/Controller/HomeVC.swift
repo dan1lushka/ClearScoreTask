@@ -20,6 +20,13 @@ class HomeVC: UIViewController {
     scoreView.layer.borderWidth = 1
     
     scoreLabel.text = "327"
+    
+    configureNavBar()
+  }
+  
+  func configureNavBar() {
+    navigationController?.navigationBar.barStyle = .black
+    navigationController?.navigationBar.isTranslucent = false
   }
   
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
