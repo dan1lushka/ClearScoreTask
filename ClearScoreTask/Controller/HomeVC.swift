@@ -9,11 +9,21 @@ import UIKit
 
 class HomeVC: UIViewController {
 
+  @IBOutlet weak var scoreView: UIView!
+
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view.
+    scoreView.makeCircular()
+    
+    scoreView.layer.borderColor = getBorderColor()
+    scoreView.layer.borderWidth = 1
   }
-
-
+  
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    scoreView.layer.borderColor = getBorderColor()
+  }
+  
+  func getBorderColor() -> CGColor {
+    return self.traitCollection.userInterfaceStyle == .dark ? UIColor.white.cgColor : UIColor.black.cgColor
+  }
 }
-

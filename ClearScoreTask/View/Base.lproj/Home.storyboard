@@ -15,13 +15,59 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l8P-2q-V3R">
+                                <rect key="frame" x="57" y="298" width="300" height="300"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your credit score is " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mld-Yi-tAy">
+                                        <rect key="frame" x="75" y="79" width="150" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="out of 700" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="buh-V7-X46">
+                                        <rect key="frame" x="110.5" y="200" width="79" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RYY-dH-5GA">
+                                        <rect key="frame" x="100" y="100" width="100" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="0IX-nX-DSD"/>
+                                            <constraint firstAttribute="height" constant="100" id="qt2-5e-3dn"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="100"/>
+                                        <color key="textColor" red="0.91411575464287187" green="0.90289646200877482" blue="0.30701600875694718" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="mld-Yi-tAy" firstAttribute="centerX" secondItem="l8P-2q-V3R" secondAttribute="centerX" id="3gv-IG-5BT"/>
+                                    <constraint firstItem="RYY-dH-5GA" firstAttribute="top" secondItem="mld-Yi-tAy" secondAttribute="bottom" id="5ou-L6-Oax"/>
+                                    <constraint firstItem="buh-V7-X46" firstAttribute="top" secondItem="RYY-dH-5GA" secondAttribute="bottom" id="B6W-tg-9Hg"/>
+                                    <constraint firstAttribute="height" constant="300" id="EwS-Qs-wpq"/>
+                                    <constraint firstItem="RYY-dH-5GA" firstAttribute="centerX" secondItem="l8P-2q-V3R" secondAttribute="centerX" id="aBn-PI-2oH"/>
+                                    <constraint firstItem="buh-V7-X46" firstAttribute="centerX" secondItem="l8P-2q-V3R" secondAttribute="centerX" id="v19-Ml-eMq"/>
+                                    <constraint firstAttribute="width" constant="300" id="x4r-UT-Idj"/>
+                                    <constraint firstItem="RYY-dH-5GA" firstAttribute="centerY" secondItem="l8P-2q-V3R" secondAttribute="centerY" id="ylx-2W-pOZ"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="l8P-2q-V3R" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Tih-ej-Y9l"/>
+                            <constraint firstItem="l8P-2q-V3R" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Tyr-rg-uC2"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="ScoreView" destination="l8P-2q-V3R" id="nem-eL-hZY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="20" y="98"/>
+            <point key="canvasLocation" x="18.840579710144929" y="97.767857142857139"/>
         </scene>
     </scenes>
     <resources>
