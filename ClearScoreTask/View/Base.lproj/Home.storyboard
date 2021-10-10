@@ -20,24 +20,23 @@
                                 <rect key="frame" x="57" y="298" width="300" height="300"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your credit score is " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mld-Yi-tAy">
-                                        <rect key="frame" x="75" y="79" width="150" height="21"/>
+                                        <rect key="frame" x="75" y="91.5" width="150" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="out of 700" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="buh-V7-X46">
-                                        <rect key="frame" x="110.5" y="200" width="79" height="21"/>
+                                        <rect key="frame" x="110.5" y="187.5" width="79" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RYY-dH-5GA">
-                                        <rect key="frame" x="100" y="100" width="100" height="100"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="327" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RYY-dH-5GA">
+                                        <rect key="frame" x="89.5" y="112.5" width="121.5" height="75"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="100" id="0IX-nX-DSD"/>
-                                            <constraint firstAttribute="height" constant="100" id="qt2-5e-3dn"/>
+                                            <constraint firstAttribute="height" constant="75" id="qt2-5e-3dn" userLabel="height = 75"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="100"/>
+                                        <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="75"/>
                                         <color key="textColor" red="0.91411575464287187" green="0.90289646200877482" blue="0.30701600875694718" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -63,6 +62,7 @@
                     </view>
                     <connections>
                         <outlet property="ScoreView" destination="l8P-2q-V3R" id="nem-eL-hZY"/>
+                        <outlet property="scoreLabel" destination="RYY-dH-5GA" id="unk-PR-45j"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
