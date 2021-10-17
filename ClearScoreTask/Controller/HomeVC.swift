@@ -25,35 +25,31 @@ class HomeVC: UIViewController {
     super.viewDidLoad()
     
     configureNavBar()
-  }
-  
-  override func viewDidAppear(_ animated: Bool) {
+    fetchCreditInfo()
     
-    changeScoreLabelValue()
   }
   
-  
-  func changeScoreLabelValue() {
+  func fetchCreditInfo() {
     
     let networkService = NetworkService()
-    let stringURL = "https://5lfoiyb0b3.execute-api.us-west-2.amazonaws.com/prod/mockcredit/values"
+    let stringURL = K.creditInfoURLString
     
-    networkService.performNetworkCall(urlString: stringURL, objectType: CreditInfo.self) { creditInfo in
+    Task.init {
+      let creditInfo = await networkService.performNetworkCall(urlString: stringURL, objectType: CreditInfo.self)
       if let creditInfo = creditInfo {
-        
+        self.creditInfo = creditInfo
         self.score = Double(creditInfo.creditReportInfo.score)
-        
+        self.animateScore()
         self.configureScoreView()
-        
-        let displayLink = CADisplayLink(target: self, selector: #selector(self.updateScoreLabel))
-        displayLink.add(to: .main, forMode: .default)
-        
-        
-        
       } else {
         self.scoreLabel.text = "Error"
       }
     }
+  }
+  
+  func animateScore() {
+    let displayLink = CADisplayLink(target: self, selector: #selector(self.updateScoreLabel))
+    displayLink.add(to: .main, forMode: .default)
   }
   
   @objc func updateScoreLabel() {
@@ -80,13 +76,18 @@ class HomeVC: UIViewController {
     scoreView.layer.borderColor = getBorderColor()
     scoreView.layer.borderWidth = 1
     
+    addCircularProggressBar()
+    animateProggressBar()
+  }
+  
+  private func addCircularProggressBar() {
     let circularPath = UIBezierPath(
-                                    arcCenter: scoreView.center,
-                                    radius: min(scoreView.frame.size.height, scoreView.frame.size.width) / 2.0 - scoreViewProgressStorke,
-                                    startAngle: -.pi / 2,
-                                    endAngle: .pi * 1.5,
-                                    clockwise: true
-                                    )
+      arcCenter: scoreView.center,
+      radius: min(scoreView.frame.size.height, scoreView.frame.size.width) / 2.0 - scoreViewProgressStorke,
+      startAngle: -.pi / 2,
+      endAngle: .pi * 1.5,
+      clockwise: true
+    )
     shapeLayer.path = circularPath.cgPath
     shapeLayer.lineWidth = scoreViewProgressStorke
     shapeLayer.strokeColor = UIColor.blue.cgColor
@@ -95,7 +96,9 @@ class HomeVC: UIViewController {
     shapeLayer.strokeEnd = 0
     shapeLayer.lineCap = .round
     view.layer.addSublayer(shapeLayer)
-    
+  }
+  
+  private func animateProggressBar() {
     let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
     let scorePercentage = score / maximumScore
     print(scorePercentage)
