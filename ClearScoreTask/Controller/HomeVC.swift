@@ -9,16 +9,15 @@ import UIKit
 
 class HomeVC: UIViewController {
   
+  // MARK: Properties
   @IBOutlet weak var scoreView: UIView!
-  @IBOutlet weak var scoreLabel: AnimatedLabel!
+  @IBOutlet weak var scoreLabel: UILabel!
   
   let animationStartData = Date()
   let shapeLayer = CAShapeLayer()
   let scoreViewProgressStorke: CGFloat = 5
-
-  var score: Double = 0.0
-  var minimumScore: Double = 0
-  var maximumScore: Double = 700.0
+  
+  var score = 0
   var creditInfo: CreditInfo?
   
   override func viewDidLoad() {
@@ -26,9 +25,30 @@ class HomeVC: UIViewController {
     
     configureNavBar()
     fetchCreditInfo()
-    
+  }
+}
+
+// MARK: dark mode handling
+extension HomeVC {
+  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    scoreView.layer.borderColor = getBorderColor()
   }
   
+  private func getBorderColor() -> CGColor {
+    return self.traitCollection.userInterfaceStyle == .dark ? UIColor.white.cgColor : UIColor.black.cgColor
+  }
+}
+
+// MARK: navigation bar handling
+extension HomeVC {
+  private func configureNavBar() {
+    navigationController?.navigationBar.barStyle = .black
+    navigationController?.navigationBar.isTranslucent = false
+  }
+}
+
+// MARK: api fetching handling
+extension HomeVC {
   func fetchCreditInfo() {
     
     let networkService = NetworkService()
@@ -38,16 +58,19 @@ class HomeVC: UIViewController {
       let creditInfo = await networkService.performNetworkCall(urlString: stringURL, objectType: CreditInfo.self)
       if let creditInfo = creditInfo {
         self.creditInfo = creditInfo
-        self.score = Double(creditInfo.creditReportInfo.score)
-        self.animateScore()
+        self.score = creditInfo.creditReportInfo.score
+        self.configureScoreLabel()
         self.configureScoreView()
       } else {
         self.scoreLabel.text = "Error"
       }
     }
   }
-  
-  func animateScore() {
+}
+
+// MARK: scoreLabel handling
+extension HomeVC {
+  func configureScoreLabel() {
     let displayLink = CADisplayLink(target: self, selector: #selector(self.updateScoreLabel))
     displayLink.add(to: .main, forMode: .default)
   }
@@ -59,18 +82,20 @@ class HomeVC: UIViewController {
     let timeElapsed = now.timeIntervalSince(animationStartData)
     
     if timeElapsed > animationDuration {
-      let intScore = Int(score)
-      self.scoreLabel.text = String(intScore)
+      self.scoreLabel.text = String(score)
     } else {
       let percentage = timeElapsed / animationDuration
-      let value = percentage * (score - minimumScore)
+      let minimumScore = Double(creditInfo?.creditReportInfo.minScoreValue ?? 0)
+      let value = percentage * (Double(score) - minimumScore)
       let intValue = Int(value)
       self.scoreLabel.text = String(intValue)
     }
   }
-  
-  // Mark: Score View handling
-  func configureScoreView() {
+}
+
+// MARK: scoreView handling
+extension HomeVC {
+  private func configureScoreView() {
     
     scoreView.makeCircular()
     scoreView.layer.borderColor = getBorderColor()
@@ -78,6 +103,8 @@ class HomeVC: UIViewController {
     
     addCircularProggressBar()
     animateProggressBar()
+    
+    scoreView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(navigateToDetailsView)))
   }
   
   private func addCircularProggressBar() {
@@ -100,8 +127,8 @@ class HomeVC: UIViewController {
   
   private func animateProggressBar() {
     let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
-    let scorePercentage = score / maximumScore
-    print(scorePercentage)
+    let maxScore = creditInfo?.creditReportInfo.maxScoreValue
+    let scorePercentage = Double(score) / Double(maxScore ?? 700)
     basicAnimation.toValue = scorePercentage
     basicAnimation.duration = 1
     basicAnimation.fillMode = .forwards
@@ -109,19 +136,17 @@ class HomeVC: UIViewController {
     
     shapeLayer.add(basicAnimation, forKey: "basic")
   }
+}
+
+// MARK: navigation handling
+extension HomeVC {
   
-  // Mark: Navigation bar handling
-  func configureNavBar() {
-    navigationController?.navigationBar.barStyle = .black
-    navigationController?.navigationBar.isTranslucent = false
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    guard let detailsVC = segue.destination as? DetailsVC else { return }
+    detailsVC.creditInfo = self.creditInfo
   }
   
-  // Mark: Dark mode handling
-  override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    scoreView.layer.borderColor = getBorderColor()
-  }
-  
-  func getBorderColor() -> CGColor {
-    return self.traitCollection.userInterfaceStyle == .dark ? UIColor.white.cgColor : UIColor.black.cgColor
+  @objc func navigateToDetailsView() {
+    self.performSegue(withIdentifier: K.homeToDetailsSegueString, sender: self)
   }
 }
