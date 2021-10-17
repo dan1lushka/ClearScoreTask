@@ -31,8 +31,8 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="327" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RYY-dH-5GA">
-                                        <rect key="frame" x="89.5" y="112.5" width="121.5" height="75"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RYY-dH-5GA" customClass="AnimatedLabel" customModule="ClearScoreTask" customModuleProvider="target">
+                                        <rect key="frame" x="128.5" y="112.5" width="43.5" height="75"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="75" id="qt2-5e-3dn" userLabel="height = 75"/>
                                         </constraints>
@@ -56,8 +56,8 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="l8P-2q-V3R" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Tih-ej-Y9l"/>
-                            <constraint firstItem="l8P-2q-V3R" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Tyr-rg-uC2"/>
+                            <constraint firstItem="l8P-2q-V3R" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Wbz-9i-c5o"/>
+                            <constraint firstItem="l8P-2q-V3R" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="a9E-Ng-e4A"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Dashboard" id="K1P-ys-4Jv"/>
