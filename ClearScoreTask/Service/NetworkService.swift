@@ -30,6 +30,14 @@ class NetworkService: NetworkServiceProtocol {
       }
       
       let decodedResponse = try JSONDecoder().decode(T.self, from: data)
+      
+      // returns nil for UI test
+      #if DEBUG
+      if CommandLine.arguments.contains("testing-Unsuccessful-response") {
+        return nil
+      }
+      #endif
+      
       return decodedResponse
       
     } catch let DecodingError.dataCorrupted(context) {

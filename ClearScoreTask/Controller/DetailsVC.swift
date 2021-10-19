@@ -39,13 +39,16 @@ class DetailsVC: UIViewController {
     configureDebtInfoLabels(creditReportInfo: creditReportInfo)
     
   }
-  
-  func configureContainerViews() {
+}
+
+// MARK: Configure Views
+extension DetailsVC {
+  private func configureContainerViews() {
     summaryView.layer.cornerRadius = 25
     DebtInfoView.layer.cornerRadius = 25
   }
   
-  func configureSummaryLabels(creditReportInfo: CreditReportInfo) {
+  private func configureSummaryLabels(creditReportInfo: CreditReportInfo) {
     positiveScoreFactorsLabel.text = "Positive score factors: \(creditReportInfo.numPositiveScoreFactors)"
     negativeScoreFactorsLabel.text = "Negative score factors: \(creditReportInfo.numNegativeScoreFactors)"
     scoreBandLabel.text = "Score Band: \(creditReportInfo.scoreBand)"
@@ -53,7 +56,7 @@ class DetailsVC: UIViewController {
     daysUntilNextReportLabel.text = "Days until next report: \(creditReportInfo.daysUntilNextReport)"
   }
   
-  func configureDebtInfoLabels(creditReportInfo: CreditReportInfo) {
+  private func configureDebtInfoLabels(creditReportInfo: CreditReportInfo) {
     currentShortTermDebtLabel.text = "Current short term debt: £\(creditReportInfo.currentShortTermDebt)"
     currentLongTermDebtLabel.text = "Current long term debt: £\(creditReportInfo.currentLongTermDebt)"
     currentShortTermCreditLimitLabel.text = "Current short term credit limit: £\(creditReportInfo.currentShortTermCreditLimit)"
@@ -61,4 +64,3 @@ class DetailsVC: UIViewController {
     percentageCreditUsedLabel.text = "Percentage of credit used: \(creditReportInfo.percentageCreditUsed)%"
   }
 }
-

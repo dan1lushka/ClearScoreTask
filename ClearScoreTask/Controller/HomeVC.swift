@@ -7,31 +7,63 @@
 
 import UIKit
 
-class HomeVC: UIViewController {
+protocol HomeVCProtocol {
+  func fetchCreditInfo() async
+  var score: Int { get set }
+  var networkService: NetworkServiceProtocol? { get set }
+}
+
+class HomeVC: UIViewController, HomeVCProtocol {
   
   // MARK: Properties
-  @IBOutlet weak var scoreView: UIView!
-  @IBOutlet weak var scoreLabel: UILabel!
+  @IBOutlet weak var scoreView: UIView?
+  @IBOutlet weak var scoreLabel: UILabel?
   
+  var networkService: NetworkServiceProtocol?
   let animationStartData = Date()
   let shapeLayer = CAShapeLayer()
   let scoreViewProgressStorke: CGFloat = 5
-  
   var score = 0
   var creditInfo: CreditInfo?
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    if networkService == nil { networkService = NetworkService() }
+    
     configureNavBar()
-    fetchCreditInfo()
+    addborderToScoreView()
+    
+    Task {
+      await fetchCreditInfo()
+      
+      guard creditInfo != nil else {
+        scoreLabel?.text = "Error"
+        return
+      }
+      
+      if scoreLabel != nil { self.configureScoreLabel() }
+      if scoreView != nil { self.configureScoreView() }
+    }
+  }
+}
+
+// MARK: api fetching handling
+extension HomeVC {
+  
+  func fetchCreditInfo() async {
+    
+    let stringURL = K.creditInfoURLString
+    
+    self.creditInfo = await networkService?.performNetworkCall(urlString: stringURL, objectType: CreditInfo.self)
+    self.score = creditInfo?.creditReportInfo.score ?? 0
   }
 }
 
 // MARK: dark mode handling
 extension HomeVC {
   override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-    scoreView.layer.borderColor = getBorderColor()
+    scoreView?.layer.borderColor = getBorderColor()
   }
   
   private func getBorderColor() -> CGColor {
@@ -47,30 +79,10 @@ extension HomeVC {
   }
 }
 
-// MARK: api fetching handling
-extension HomeVC {
-  func fetchCreditInfo() {
-    
-    let networkService = NetworkService()
-    let stringURL = K.creditInfoURLString
-    
-    Task.init {
-      let creditInfo = await networkService.performNetworkCall(urlString: stringURL, objectType: CreditInfo.self)
-      if let creditInfo = creditInfo {
-        self.creditInfo = creditInfo
-        self.score = creditInfo.creditReportInfo.score
-        self.configureScoreLabel()
-        self.configureScoreView()
-      } else {
-        self.scoreLabel.text = "Error"
-      }
-    }
-  }
-}
-
 // MARK: scoreLabel handling
 extension HomeVC {
-  func configureScoreLabel() {
+  
+  private func configureScoreLabel() {
     let displayLink = CADisplayLink(target: self, selector: #selector(self.updateScoreLabel))
     displayLink.add(to: .main, forMode: .default)
   }
@@ -82,32 +94,37 @@ extension HomeVC {
     let timeElapsed = now.timeIntervalSince(animationStartData)
     
     if timeElapsed > animationDuration {
-      self.scoreLabel.text = String(score)
+      self.scoreLabel?.text = String(score)
     } else {
       let percentage = timeElapsed / animationDuration
       let minimumScore = Double(creditInfo?.creditReportInfo.minScoreValue ?? 0)
       let value = percentage * (Double(score) - minimumScore)
       let intValue = Int(value)
-      self.scoreLabel.text = String(intValue)
+      self.scoreLabel?.text = String(intValue)
     }
   }
 }
 
 // MARK: scoreView handling
 extension HomeVC {
+  private func addborderToScoreView() {
+    scoreView?.makeCircular()
+    scoreView?.layer.borderColor = getBorderColor()
+    scoreView?.layer.borderWidth = 1
+  }
+  
   private func configureScoreView() {
-    
-    scoreView.makeCircular()
-    scoreView.layer.borderColor = getBorderColor()
-    scoreView.layer.borderWidth = 1
     
     addCircularProggressBar()
     animateProggressBar()
     
-    scoreView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(navigateToDetailsView)))
+    scoreView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(navigateToDetailsView)))
   }
   
   private func addCircularProggressBar() {
+    
+    guard let scoreView = scoreView else { return }
+    
     let circularPath = UIBezierPath(
       arcCenter: scoreView.center,
       radius: min(scoreView.frame.size.height, scoreView.frame.size.width) / 2.0 - scoreViewProgressStorke,
